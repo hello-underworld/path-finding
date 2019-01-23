@@ -109,7 +109,7 @@ class intsitecomp(ChargeDensityAnalyzer):
         pos_list_1= np.array(pos_list_1)                     
         self._edgelist = pd.DataFrame.from_dict({'edge_tuple' : list(self.gt.graph.edges())})
         edge_lab = generic_groupby(self._edgelist['edge_tuple'], comp = self.compare_edges)
-        self._edgelist['site_label'] = edge_lab
+        self._edgelist['edge_label'] = edge_lab
         self._edgelist['to_jimage'] = to_jimage
         self._edgelist['pos0x'] = pos_list_0[:,0]
         self._edgelist['pos0y'] = pos_list_0[:,1]
@@ -118,7 +118,7 @@ class intsitecomp(ChargeDensityAnalyzer):
         self._edgelist['pos1y'] = pos_list_1[:,1]
         self._edgelist['pos1z'] = pos_list_1[:,2]
         # write the image
-        self.unique_edges = self._edgelist.drop_duplicates('site_label', keep='first')
+        self.unique_edges = self._edgelist.drop_duplicates('edge_label', keep='first')
 
 
         # set up the grid
