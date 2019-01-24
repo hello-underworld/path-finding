@@ -1,7 +1,7 @@
 from pymatgen.analysis.defects.utils import ChargeDensityAnalyzer
 from pymatgen import Structure
 from pymatgen.io.vasp.outputs import Chgcar
-from pymatgen.analysis.local_env import CrystalNN
+from pymatgen.analysis.local_env import MinimumDistanceNN
 
 
 class Pathfinder:
@@ -49,7 +49,7 @@ class Pathfinder:
         CDA.sort_sites_by_integrated_chg()
         all_sites = CDA._extrema_df
 
-        pos_ints = [u for u in all_sites['avg_charge_den'] if u <= (min(all_sites['avg_charge_den'])*5)]
+        pos_ints = [u for u in all_sites['avg_charge_den'] if u <= (min(all_sites['avg_charge_den'])*5)] #might need better criteria to sort possible sites
         num_possible_li = len(pos_ints)
         big_struct = CDA.get_structure_with_nodes()
 
@@ -118,7 +118,7 @@ class Pathfinder:
             A list of dictionaries that has all the neighbor information of all possible Li sites.
         """
 
-        NN = CrystalNN(distance_cutoffs=(), x_diff_weight=0.0)
+        NN = MinimumDistanceNN(tol=0.3,cutoff=12)
         neighbors_data = []
 
         if only_li_struct == None:
