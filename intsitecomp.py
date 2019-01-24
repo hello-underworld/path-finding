@@ -164,7 +164,7 @@ class intsitecomp(ChargeDensityAnalyzer):
                 mask_out.write_file('{}_{}.vasp'.format(mask_file,row['edge_tuple']))
 
 
-            total_chg.append(self.chgcar.data['total'][pbc_mask].sum()/self.chgcar.ngridpts)
+            total_chg.append(self.chgcar.data['total'][pbc_mask].sum()/self.chgcar.ngridpts/self.chgcar.structure.volume)
 
         self.complete_mask=idx_pbc_mask
         self.unique_edges['chg_total']=total_chg
